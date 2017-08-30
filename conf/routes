@@ -1,0 +1,15 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+GET     /                           controllers.HomeController.index
+GET     /cities                     controllers.city.CityController.allCities
+GET     /cities/:id                 controllers.city.CityController.city
+UPDATE  /cities/:id                 controllers.city.CityController.updateCity
+POST    /cities/:id                 controllers.city.CityController.createCity
+DELETE  /cities/:id                 controllers.city.CityController.deleteCity
+GET     /count                      controllers.CountController.count
+# An example controller showing how to write asynchronous code
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
