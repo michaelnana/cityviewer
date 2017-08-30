@@ -4,10 +4,10 @@
 
 GET     /                           controllers.HomeController.index
 GET     /cities                     controllers.city.CityController.allCities
-GET     /cities/:id                 controllers.city.CityController.city
-UPDATE  /cities/:id                 controllers.city.CityController.updateCity
-POST    /cities/:id                 controllers.city.CityController.createCity
-DELETE  /cities/:id                 controllers.city.CityController.deleteCity
+GET     /cities/:id                 controllers.city.CityController.city(id)
+PUT     /cities/:id                 controllers.city.CityController.updateCity(id)
+POST    /cities/:id                 controllers.city.CityController.createCity(id)
+DELETE  /cities/:id                 controllers.city.CityController.deleteCity(id)
 GET     /count                      controllers.CountController.count
 # An example controller showing how to write asynchronous code
 

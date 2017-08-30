@@ -1,5 +1,6 @@
 package api.city;
 
+import data.CityDAO;
 import model.City;
 
 import java.util.List;
@@ -8,7 +9,7 @@ public class CityFacade implements CityAPI {
 
     @Override
     public List<City> all() {
-        return null;
+        return new CityDAO().listAll();
     }
 
     @Override

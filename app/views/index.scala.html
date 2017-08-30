@@ -1,20 +1,79 @@
-@*
- * This template takes a single argument, a String containing a
- * message to display.
- *@
-@(message: String)
-
-@*
- * Call the `main` template with two arguments. The first
- * argument is a `String` with the title of the page, the second
- * argument is an `Html` object containing the body of the page.
- *@
-@main("Welcome to Play") {
-
-    @*
-     * Get an `Html` object by calling the built-in Play welcome
-     * template and passing a `String` message.
-     *@
-    @play20.welcome(message, style = "Java")
-
-}
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-aria.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-messages.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <link rel="stylesheet" href="/assets/stylesheets/main.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+</head>
+<body data-ng-app="app" data-ng-controller="dashboardController as dashboard" data-ng-init="dashboard.init()">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header"><h2>Registration</h2></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Register
+                </div>
+                <div class="panel-body">
+                    <form name="registerForm" novalidate>
+                        <div class="form-group" data-ng-class="{&quot;has-error&quot; : !registerForm.username.$valid}">
+                            <label class="control-label" for="username">Username</label>
+                            <input class="form-control"
+                                   data-ng-model="dashboard.username"
+                                   data-ng-pattern-restrict="^[A-Za-z0-9]*$"
+                                   name="username"
+                                   id="username"
+                                   placeholder="Enter a username"
+                                   type="text"
+                                   required
+                                   data-ng-minlength="5">
+                            <div class="help-block" data-ng-messages="registerForm.username.$error"
+                                 data-ng-if="registerForm.username.$touched">
+                                <p data-ng-message="minlength">Your username is too short.</p>
+                                <p data-ng-message="required">Your username is required.</p>
+                            </div>
+                        </div>
+                        <div class="form-group" data-ng-class="{&quot;has-error&quot; : !registerForm.password.$valid}">
+                            <label class="control-label" for="password">Password</label>
+                            <input class="form-control"
+                                   data-ng-model="dashboard.password"
+                                   name="password"
+                                   id="password"
+                                   data-ng-minlength="8"
+                                   placeholder="Enter a password"
+                                   required
+                                   type="password">
+                            <div class="help-block" data-ng-messages="registerForm.password.$error"
+                                 data-ng-if="registerForm.password.$touched">
+                                <p data-ng-message="minlength">Your password is too short.</p>
+                                <p data-ng-message="required">Your password is required.</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary"
+                                data-ng-disabled="registerForm.username.$pristine || !registerForm.username.$valid"
+                                data-ng-click="dashboard.register()">Login
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/assets/app/app.js"></script>
+<script src="/assets/app/factories/city.factory.js"></script>
+<script src="/assets/app/controllers/dashboard.controller.js"></script>
+</body>
+</html>
