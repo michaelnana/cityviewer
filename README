@@ -16,4 +16,7 @@ How to Run
 
 - If you want to run the javascript tests locally, use the command ./node_modules/mocha/bin/mocha
 
+
+To see how my REST api is set up, look at the routes file.
+
 Have fun
