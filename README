@@ -12,6 +12,8 @@ How to Run
 
 - If you want to run this locally, make sure you have activator 1.3.12 installed and simple run activator run in the project root.
 
+- For a live demo, go to https://micityviewer.herokuapp.com/ to see this in action.
+
 - If you want to run the javascript tests locally, use the command ./node_modules/mocha/bin/mocha
 
 Have fun
