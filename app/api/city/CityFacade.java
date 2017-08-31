@@ -14,21 +14,24 @@ public class CityFacade implements CityAPI {
 
     @Override
     public City byId(Integer id) {
-        return null;
+        return new CityDAO().findById(id);
     }
 
     @Override
     public City update(City city) {
-        return null;
+        new CityDAO().update(city);
+        return city;
     }
 
     @Override
     public boolean delete(Integer id) {
-        return false;
+        new CityDAO().deleteById(id);
+        return true;
     }
 
     @Override
-    public City create(City City) {
-        return null;
+    public City create(City city) {
+        new CityDAO().create(city);
+        return city;
     }
 }

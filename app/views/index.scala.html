@@ -15,58 +15,131 @@
     <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
 </head>
 <body data-ng-app="app" data-ng-controller="dashboardController as dashboard" data-ng-init="dashboard.init()">
+<div data-ng-include="'/assets/views/header.html'"></div>
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <div class="page-header"><h2>Registration</h2></div>
+            <div class="page-header">
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Create a new City</button>
+            </div>
+        </div>
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Enter New City Details</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="create-city-name">Name</label>
+                                        <input id="create-city-name" type="text" class="form-control"
+                                               placeholder="Enter City Name"
+                                               data-ng-model="dashboard.newcity.name"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="create-city-latitude">Latitude</label>
+                                        <input id="create-city-latitude" type="text" class="form-control"
+                                               placeholder="Enter City Latitude"
+                                               data-ng-model="dashboard.newcity.latitude"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="create-city-longitude">Longitude</label>
+                                        <input id="create-city-longitude" type="text" class="form-control"
+                                               placeholder="Enter City Longitude"
+                                               data-ng-model="dashboard.newcity.longitude"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-ng-click="dashboard.createCity()">Save</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    Register
+                    <div class="panel-title">Distance Calculator</div>
                 </div>
                 <div class="panel-body">
-                    <form name="registerForm" novalidate>
-                        <div class="form-group" data-ng-class="{&quot;has-error&quot; : !registerForm.username.$valid}">
-                            <label class="control-label" for="username">Username</label>
-                            <input class="form-control"
-                                   data-ng-model="dashboard.username"
-                                   data-ng-pattern-restrict="^[A-Za-z0-9]*$"
-                                   name="username"
-                                   id="username"
-                                   placeholder="Enter a username"
-                                   type="text"
-                                   required
-                                   data-ng-minlength="5">
-                            <div class="help-block" data-ng-messages="registerForm.username.$error"
-                                 data-ng-if="registerForm.username.$touched">
-                                <p data-ng-message="minlength">Your username is too short.</p>
-                                <p data-ng-message="required">Your username is required.</p>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label>City 1</label>
+                                    <select class="form-control" data-ng-model="dashboard.locationCity1" data-ng-options="city.name for city in dashboard.allCities">
+                                        <option value="">Select a City</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label>City 2</label>
+                                    <select class="form-control" data-ng-model="dashboard.locationCity2" data-ng-options="city.name for city in dashboard.allCities">
+                                        <option value="">Select another City</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-primary" data-ng-click="dashboard.calculateDistance()">Calculate</button>
                             </div>
                         </div>
-                        <div class="form-group" data-ng-class="{&quot;has-error&quot; : !registerForm.password.$valid}">
-                            <label class="control-label" for="password">Password</label>
-                            <input class="form-control"
-                                   data-ng-model="dashboard.password"
-                                   name="password"
-                                   id="password"
-                                   data-ng-minlength="8"
-                                   placeholder="Enter a password"
-                                   required
-                                   type="password">
-                            <div class="help-block" data-ng-messages="registerForm.password.$error"
-                                 data-ng-if="registerForm.password.$touched">
-                                <p data-ng-message="minlength">Your password is too short.</p>
-                                <p data-ng-message="required">Your password is required.</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <h4>{{dashboard.distance}}</h4>
                             </div>
                         </div>
-                        <button class="btn btn-primary"
-                                data-ng-disabled="registerForm.username.$pristine || !registerForm.username.$valid"
-                                data-ng-click="dashboard.register()">Login
-                        </button>
-                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" data-ng-repeat="city in dashboard.allCities">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="panel-title"><a href="/cities/{{city.id}}">{{city.name}}</a></div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="city-latitude">Latitude</label>
+                                    <input id="city-latitude" type="text" class="form-control" readonly
+                                           data-ng-model="city.latitude"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="city-longitude">Longitude</label>
+                                    <input id="city-longitude" type="text" class="form-control" readonly
+                                           data-ng-model="city.longitude"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -74,6 +147,6 @@
 </div>
 <script src="/assets/app/app.js"></script>
 <script src="/assets/app/factories/city.factory.js"></script>
-<script src="/assets/app/controllers/dashboard.controller.js"></script>
+<script src="/assets/app/controllers/dashboard/dashboard.controller.js"></script>
 </body>
 </html>

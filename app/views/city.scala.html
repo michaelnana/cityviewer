@@ -1,0 +1,72 @@
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-aria.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-messages.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <link rel="stylesheet" href="/assets/stylesheets/main.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+</head>
+<body data-ng-app="app" data-ng-controller="cityController as city" data-ng-init="city.init()">
+<div data-ng-include="'/assets/views/header.html'"></div>
+<div class="container">
+    <div class="row">
+        <div class="page-header"><h3>{{city.details.name}}</h3></div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="panel-title">Details</span>
+                    <span class="pull-right">
+                        <button class="btn btn-primary btn-sm" data-ng-click="city.update()">Update</button>
+                        <button class="btn btn-danger btn-sm" data-ng-click="city.deleteCity()">Delete</button>
+                    </span>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="city-name">Name</label>
+                                    <input id="city-name" type="text" class="form-control"
+                                           data-ng-model="city.details.name"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="city-latitude">Latitude</label>
+                                    <input id="city-latitude" type="text" class="form-control"
+                                           data-ng-model="city.details.latitude"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="city-longitude">Longitude</label>
+                                    <input id="city-longitude" type="text" class="form-control"
+                                           data-ng-model="city.details.longitude"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/assets/app/app.js"></script>
+<script src="/assets/app/factories/city.factory.js"></script>
+<script src="/assets/app/controllers/city/city.controller.js"></script>
+</body>
+</html>
