@@ -6,32 +6,41 @@ import model.City;
 import java.util.List;
 
 public class CityFacade implements CityAPI {
+    CityDAO cityDAO;
+
+    public CityFacade() {
+        cityDAO = new CityDAO();
+    }
+
+    public CityFacade(CityDAO dao) {
+        cityDAO = dao;
+    }
 
     @Override
     public List<City> all() {
-        return new CityDAO().listAll();
+        return cityDAO.listAll();
     }
 
     @Override
     public City byId(Integer id) {
-        return new CityDAO().findById(id);
+        return cityDAO.findById(id);
     }
 
     @Override
     public City update(City city) {
-        new CityDAO().update(city);
+        cityDAO.update(city);
         return city;
     }
 
     @Override
     public boolean delete(Integer id) {
-        new CityDAO().deleteById(id);
+        cityDAO.deleteById(id);
         return true;
     }
 
     @Override
     public City create(City city) {
-        new CityDAO().create(city);
+        cityDAO.create(city);
         return city;
     }
 }

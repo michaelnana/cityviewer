@@ -8,6 +8,7 @@ scalaVersion := "2.11.7"
 
 libraryDependencies ++= Seq(
   javaJdbc,
+  "org.mockito" % "mockito-all" % "1.9.5",
   cache,
   javaWs
 )
