@@ -1,4 +1,4 @@
-app.controller('cityController', ['$scope', 'cityFactory', CityController]);
+angular.module('app').controller('cityController', ['$scope', 'cityFactory', CityController]);
 
 function CityController($scope, cityFactory) {
     var city = this;

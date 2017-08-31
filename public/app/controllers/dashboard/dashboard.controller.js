@@ -1,4 +1,4 @@
-app.controller('dashboardController', ['$scope', 'cityFactory', DashboardController]);
+angular.module('app').controller('dashboardController', ['$scope', 'cityFactory', DashboardController]);
 
 function DashboardController($scope, cityFactory) {
     var dashboard = this;
