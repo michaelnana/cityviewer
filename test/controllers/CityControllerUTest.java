@@ -72,7 +72,20 @@ public class CityControllerUTest extends WithApplication {
     }
 
     @Test
-    public void city_returns_an_ok_result_with_the_company_page_on_a_city_that_matches_the_id_passed_in () {
+    public void city_returns_a_not_found_result_if_the_id_passed_in_matches_no_city () {
+        when(mockedAPI.byId(10)).thenReturn(null);
+        Result cityResult = controller.city("10");
+        assertEquals(cityResult.status(), 404);
+    }
+
+    @Test
+    public void city_returns_an_internal_server_error_if_the_id_passed_in_is_not_an_integer () {
+        Result cityResult = controller.city("bla");
+        assertEquals(cityResult.status(), 500);
+    }
+
+    @Test
+    public void city_returns_an_ok_result_with_the_company_page_on_a_city_that_matches_the_id_passed_in_if_header_is_html () {
         when(request.accepts("text/html")).thenReturn(true);
         Result cityResult = controller.city("1");
         assertEquals(cityResult.status(), 200);
@@ -98,6 +111,12 @@ public class CityControllerUTest extends WithApplication {
     }
 
     @Test
+    public void updatedCity_returns_an_internal_server_error_if_the_id_passed_is_not_an_integer () {
+        Result cityResult = controller.updateCity("bla");
+        assertEquals(cityResult.status(), 500);
+    }
+
+    @Test
     public void delete_returns_an_ok_result_with_a_successful_deletion_if_city_is_successfully_deleted () {
         when(mockedAPI.delete(1)).thenReturn(true);
         Result cityResult = controller.deleteCity("1");
@@ -111,6 +130,12 @@ public class CityControllerUTest extends WithApplication {
         Result cityResult = controller.deleteCity("1");
         assertEquals(cityResult.status(), 200);
         assertEquals(contentAsString(cityResult), "{\"successfuldeletion\":false}");
+    }
+
+    @Test
+    public void delete_returns_an_an_internal_server_error_if_the_id_passed_is_not_an_integer () {
+        Result cityResult = controller.deleteCity("bla");
+        assertEquals(cityResult.status(), 500);
     }
 
     @Test

@@ -26,45 +26,68 @@ public class CityController extends Controller {
     }
 
     public Result city(String cityId) {
-        if (request().accepts("text/html")) {
-            return ok(views.html.city.render());
-        } else {
-            return ok(Json.toJson(cityAPI.byId(Integer.parseInt(cityId))));
+        try {
+            if (request().accepts("text/html")) {
+                return ok(views.html.city.render());
+            } else {
+                City retrievedCity = cityAPI.byId(Integer.parseInt(cityId));
+                if (retrievedCity == null) {
+                    return notFound();
+                } else {
+                    return ok(Json.toJson(retrievedCity));
+                }
+            }
+        } catch (Exception e) {
+            return internalServerError();
         }
     }
 
     public Result updateCity(String cityId) {
-        DynamicForm form = Form.form().bindFromRequest();
-        String cityName = form.get("name");
-        String latitude = form.get("latitude");
-        String longitude = form.get("longitude");
-        City cityToUpdate = new City();
-        cityToUpdate.setId(Integer.parseInt(cityId));
-        cityToUpdate.setName(cityName);
-        cityToUpdate.setLatitude(Double.parseDouble(latitude));
-        cityToUpdate.setLongitude(Double.parseDouble(longitude));
-        return ok(Json.toJson(cityAPI.update(cityToUpdate)));
+        try {
+            City cityToUpdate = fromRequest(Form.form().bindFromRequest());
+            cityToUpdate.setId(Integer.parseInt(cityId));
+            City updatedCity = cityAPI.update(cityToUpdate);
+            if (updatedCity == null) {
+                return notFound();
+            } else {
+                return ok(Json.toJson(updatedCity));
+            }
+        } catch (Exception e) {
+            return internalServerError();
+        }
     }
 
     public Result deleteCity(String cityId) {
-        ObjectNode json = Json.newObject();
-        if(cityAPI.delete(Integer.parseInt(cityId))) {
-            json.put("successfuldeletion", true);
-        } else {
-            json.put("successfuldeletion", false);
+        try {
+            ObjectNode json = Json.newObject();
+            if (cityAPI.delete(Integer.parseInt(cityId))) {
+                json.put("successfuldeletion", true);
+            } else {
+                json.put("successfuldeletion", false);
+            }
+            return ok(json);
+        } catch (Exception e) {
+            return internalServerError();
         }
-        return ok(json);
     }
 
     public Result createCity() {
-        DynamicForm form = Form.form().bindFromRequest();
+        try {
+            City cityToCreate = fromRequest(Form.form().bindFromRequest());
+            return ok(Json.toJson(cityAPI.create(cityToCreate)));
+        } catch (Exception e) {
+            return internalServerError();
+        }
+    }
+
+    private City fromRequest(DynamicForm form) {
         String cityName = form.get("name");
         String latitude = form.get("latitude");
         String longitude = form.get("longitude");
-        City cityToCreate = new City();
-        cityToCreate.setName(cityName);
-        cityToCreate.setLatitude(Double.parseDouble(latitude));
-        cityToCreate.setLongitude(Double.parseDouble(longitude));
-        return ok(Json.toJson(cityAPI.create(cityToCreate)));
+        City city = new City();
+        city.setName(cityName);
+        city.setLatitude(Double.parseDouble(latitude));
+        city.setLongitude(Double.parseDouble(longitude));
+        return city;
     }
 }

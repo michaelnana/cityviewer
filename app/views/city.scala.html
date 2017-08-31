@@ -18,7 +18,15 @@
 <div data-ng-include="'/assets/views/header.html'"></div>
 <div class="container">
     <div class="row">
-        <div class="page-header"><h3>{{city.details.name}}</h3></div>
+        <div class="page-header"><h3>City Information</h3></div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="breadcrumb">
+                <li><a href="/">Cities</a></li>
+                <li class="active"><a href="/cities/{{city.id}}">{{city.id}}</a></li>
+            </ul>
+        </div>
     </div>
     <div class="row">
         <div class="col-md-12">

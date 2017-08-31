@@ -12,21 +12,38 @@ function CityController($scope, cityFactory) {
                 city.details = response.data;
             },
             function(error) {
-                console.log("Error: " + error);
+                switch (error.status) {
+                    case 404:
+                        toastr.error("City wasn't found");
+                        break;
+                    case 500:
+                        toastr.error("Something went wrong with your request");
+                        break;
+                }
             }
         )
     }
 
     city.update = function() {
         cityFactory.update(
-            city.id,
-            {name: city.details.name, latitude: city.details.latitude, longitude: city.details.longitude},
+            city.id, {
+                name: city.details.name,
+                latitude: city.details.latitude,
+                longitude: city.details.longitude
+            },
             function(response) {
                 city.details = response.data;
                 toastr.success(city.details.name + ' was successfully updated');
             },
             function(error) {
-                console.log("Error: " + error);
+                switch (error.status) {
+                    case 404:
+                        toastr.error("City wasn't found");
+                        break;
+                    case 500:
+                        toastr.error("Something went wrong with your request");
+                        break;
+                }
             }
         )
     }
@@ -35,11 +52,18 @@ function CityController($scope, cityFactory) {
         cityFactory.deleteCity(
             city.id,
             function(response) {
-                            window.location.href = "/";
-                        },
-                        function(error) {
-                            console.log("Error: " + error);
-                        }
+                window.location.href = "/";
+            },
+            function(error) {
+                switch (error.status) {
+                    case 404:
+                        toastr.error("City wasn't found");
+                        break;
+                    case 500:
+                        toastr.error("Something went wrong with your request");
+                        break;
+                }
+            }
         )
     }
 }

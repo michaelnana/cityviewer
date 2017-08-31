@@ -5,7 +5,6 @@ import model.City;
 import java.util.List;
 
 public interface CityAPI {
-
     List<City> all();
     City byId(Integer id);
     City update(City city);
