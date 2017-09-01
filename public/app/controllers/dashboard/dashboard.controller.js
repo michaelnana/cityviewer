@@ -48,19 +48,19 @@ function DashboardController($scope, cityFactory) {
 
     function distanceBetweenCoordinates(city1Latitude, city1Longitude, city2Latitude, city2Longitude) {
         var radiusOfEarth = 6371;
-        var latitudeDistance = deg2rad(city2Latitude - city1Latitude);
-        var longitudeDistance = deg2rad(city2Longitude - city1Longitude);
+        var latitudeDistance = toRadians(city2Latitude - city1Latitude);
+        var longitudeDistance = toRadians(city2Longitude - city1Longitude);
         var a =
             Math.sin(latitudeDistance / 2) * Math.sin(latitudeDistance / 2) +
-            Math.cos(deg2rad(city1Latitude)) * Math.cos(deg2rad(city2Latitude)) *
+            Math.cos(toRadians(city1Latitude)) * Math.cos(toRadians(city2Latitude)) *
             Math.sin(longitudeDistance / 2) * Math.sin(longitudeDistance / 2);
         var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         var d = radiusOfEarth * c;
         return d;
     }
 
-    function deg2rad(deg) {
-        return deg * (Math.PI / 180)
+    function toRadians(degrees) {
+        return degrees * (Math.PI / 180)
     }
 
 }
