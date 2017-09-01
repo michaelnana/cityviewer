@@ -8,7 +8,6 @@ GET     /cities/:id                 controllers.city.CityController.city(id)
 PUT     /cities/:id                 controllers.city.CityController.updateCity(id)
 POST    /cities/                    controllers.city.CityController.createCity
 DELETE  /cities/:id                 controllers.city.CityController.deleteCity(id)
-GET     /count                      controllers.CountController.count
 
 
 # Map static resources from the /public folder to the /assets URL path

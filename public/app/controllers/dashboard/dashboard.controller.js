@@ -41,7 +41,7 @@ function DashboardController($scope, cityFactory) {
             parseFloat(dashboard.locationCity1.longitude),
             parseFloat(dashboard.locationCity2.latitude),
             parseFloat(dashboard.locationCity2.longitude)
-        )
+        );
         dashboard.distance = "Distance between " + dashboard.locationCity1.name +
             " and " + dashboard.locationCity2.name + " is " + distanceBetweenCities.toFixed(2) + " KM";
     }
@@ -60,7 +60,7 @@ function DashboardController($scope, cityFactory) {
     }
 
     function toRadians(degrees) {
-        return degrees * (Math.PI / 180)
+        return degrees * (Math.PI / 180);
     }
 
 }
